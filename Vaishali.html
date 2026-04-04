@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<!-- ═══════════════════════════════════════════
+     HOW TO EDIT THIS FILE
+     ───────────────────────────────────────────
+     1. Open in any text editor
+        • Windows → Notepad or VS Code
+        • Mac → TextEdit (plain text mode) or VS Code
+        • Free download: https://code.visualstudio.com
+
+     2. Press Ctrl+F (Windows) or Cmd+F (Mac)
+        and search for:  📝 EDIT
+        Every spot you'd want to change is marked.
+
+     3. Save the file, then open it in Chrome/Safari.
+
+     WHAT'S WHERE:
+       Step 1 → Opening screen
+       Step 2 → Your heartfelt quote / message
+       Step 3 → KitKat surprise
+       Step 4 → The date question (Yes / No / Maybe)
+       Step 5 → Celebration after she says Yes!
+═══════════════════════════════════════════ -->
+
+<!-- 📝 EDIT: browser tab title -->
+<title>Hey Vaishali 🌻</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ─────────────────────────────────────────
+   📝 EDIT COLOURS HERE to change the theme
+   ───────────────────────────────────────── */
+:root {
+  --rose:  #e8416f;  /* main accent (buttons, highlights) */
+  --warm:  #7c3d52;  /* heading colour                   */
+  --cream: #fff8f0;  /* background                       */
+  --blush: #fce4ec;  /* light pink sections              */
+  --soft:  #c98ba0;  /* muted / hint text                */
+  --body:  #6b4454;  /* paragraph text                   */
+  --gold:  #d4a853;  /* "still thinking" button          */
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%; width: 100%; overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* ── Falling petals (decorative background) ── */
+.petal-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.petal {
+  position: absolute; opacity: 0;
+  animation: petalFall linear infinite;
+  border-radius: 50% 0 50% 0;
+}
+@keyframes petalFall {
+  0%   { transform: translateY(-40px) rotate(0deg);   opacity: 0.7; }
+  100% { transform: translateY(110vh)  rotate(540deg); opacity: 0;   }
+}
+
+/* ── App shell (full-screen) ── */
+#app {
+  position: fixed; inset: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Steps (one shown at a time) ── */
+.step {
+  display: none;
+  flex-direction: column; align-items: center;
+  justify-content: center; text-align: center;
+  padding: 28px 24px 72px; /* bottom padding clears the dots */
+  width: 100%; height: 100%;
+  animation: stepIn 0.45s ease both;
+}
+.step.active { display: flex; }
+@keyframes stepIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Step backgrounds ── */
+#step1 { background: linear-gradient(160deg, #fff0f5 0%, var(--cream) 70%); }
+#step2 { background: linear-gradient(135deg, var(--blush) 0%, #fff0e6 100%); }
+#step3 { background: var(--cream); }
+#step4 { background: linear-gradient(160deg, #fff0f5 0%, var(--blush) 100%); }
+#step5 { background: linear-gradient(135deg, #fff0f5 0%, var(--blush) 100%); }
+
+/* ── Typography ── */
+.tag {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--soft); margin-bottom: 10px;
+}
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 10vw, 3.6rem);
+  line-height: 1.15; color: var(--warm); margin-bottom: 14px;
+}
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.55rem, 7.5vw, 2.6rem);
+  line-height: 1.2; color: var(--warm); margin-bottom: 14px;
+}
+h1 em, h2 em { color: var(--rose); font-style: italic; }
+p.body-text {
+  font-size: clamp(0.88rem, 3.8vw, 1.02rem);
+  line-height: 1.75; color: var(--body); max-width: 360px;
+}
+
+/* ── Floating big emoji ── */
+.float-emoji {
+  font-size: clamp(68px, 20vw, 96px);
+  animation: floatBob 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 8px 20px rgba(232,65,111,0.2));
+  margin-bottom: 20px;
+}
+@keyframes floatBob {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+/* ── Quote card ── */
+.quote-card {
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(232,65,111,0.15);
+  border-radius: 20px;
+  padding: clamp(22px,5vw,36px) clamp(18px,5vw,32px);
+  max-width: 390px; width: 100%;
+  box-shadow: 0 16px 48px rgba(124,61,82,0.1);
+  margin-bottom: 24px;
+}
+.quote-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem; line-height: 0.5;
+  color: var(--rose); opacity: 0.3;
+  display: block; margin-bottom: 8px;
+}
+.quote-text {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 4.2vw, 1.3rem);
+  line-height: 1.6; color: var(--warm); font-style: italic;
+}
+.divider {
+  width: 44px; height: 2px; margin: 16px auto;
+  background: linear-gradient(to right, transparent, var(--rose), transparent);
+}
+
+/* ── KitKat chocolate bar ── */
+.kitkat-zone { cursor: pointer; user-select: none; margin-bottom: 6px; }
+.kitkat-bar {
+  display: inline-flex; gap: 5px;
+  background: #c0392b; padding: 11px 15px;
+  border-radius: 10px;
+  box-shadow: 0 10px 34px rgba(192,57,43,0.35);
+}
+.kitkat-zone:active .kitkat-bar { transform: scale(0.96); }
+.finger {
+  width: clamp(26px, 7vw, 34px);
+  height: clamp(65px, 17vw, 88px);
+  background: linear-gradient(180deg, #d4503f 0%, #b03020 100%);
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: rgba(255,255,255,0.55);
+  font-weight: 700; letter-spacing: 1px; writing-mode: vertical-rl;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.2),
+              inset 0 -2px 4px rgba(0,0,0,0.2);
+}
+.kitkat-bar.revealed .finger { animation: fingerPop 0.45s forwards; }
+.kitkat-bar.revealed .finger:nth-child(2) { animation-delay: 0.09s; }
+.kitkat-bar.revealed .finger:nth-child(3) { animation-delay: 0.18s; }
+.kitkat-bar.revealed .finger:nth-child(4) { animation-delay: 0.27s; }
+@keyframes fingerPop {
+  0%   { transform: translateY(0); }
+  35%  { transform: translateY(-13px); background: linear-gradient(180deg,#f08060,#d4503f); }
+  100% { transform: translateY(0); }
+}
+.kitkat-hint { font-size: 0.8rem; color: var(--soft); margin-top: 10px; }
+
+.reveal-msg {
+  font-size: clamp(0.88rem, 3.5vw, 1rem);
+  line-height: 1.72; color: var(--body); max-width: 320px;
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.5s 0.5s, opacity 0.5s 0.5s;
+  margin: 0 auto;
+}
+.reveal-msg.shown { max-height: 140px; opacity: 1; }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: clamp(12px,3vw,15px) clamp(22px,6vw,34px);
+  border-radius: 50px; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(0.88rem, 3.5vw, 1rem);
+  font-weight: 500; letter-spacing: 0.3px;
+  transition: all 0.22s; -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: scale(0.96); }
+.btn-primary { background: var(--rose); color: #fff; box-shadow: 0 8px 26px rgba(232,65,111,0.35); }
+.btn-outline  { background: transparent; color: var(--rose); border: 2px solid var(--rose); }
+.btn-outline:active { background: var(--rose); color: #fff; }
+.btn-yes   { background: var(--rose); color: #fff; box-shadow: 0 8px 26px rgba(232,65,111,0.35); }
+.btn-no    { background: transparent; color: var(--soft);  border: 2px solid var(--soft); }
+.btn-maybe { background: transparent; color: var(--gold);  border: 2px solid var(--gold); }
+
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 26px; }
+
+/* "Next" button hidden until KitKat is tapped */
+#nextBtn {
+  margin-top: 18px;
+  opacity: 0; pointer-events: none; transform: translateY(8px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+#nextBtn.show { opacity: 1; pointer-events: all; transform: none; }
+
+/* ── Yes celebration emoji ── */
+.confetti-big {
+  font-size: clamp(52px, 15vw, 80px);
+  animation: popIn 0.6s ease both;
+  margin-bottom: 16px;
+}
+@keyframes popIn {
+  0%   { transform: scale(0) rotate(-10deg); }
+  60%  { transform: scale(1.15) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* ── Progress dots ── */
+.dots {
+  position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px; z-index: 20;
+}
+.dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--soft); opacity: 0.3;
+  transition: opacity 0.3s, transform 0.3s, background 0.3s;
+}
+.dot.active { opacity: 1; transform: scale(1.35); background: var(--rose); }
+</style>
+</head>
+<body>
+
+<div class="petal-bg" id="petalBg"></div>
+
+<!-- Progress dots (one per step) -->
+<div class="dots" id="dots">
+  <div class="dot active"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+</div>
+
+<div id="app">
+
+  <!-- ══════════════════════════════════════
+       STEP 1 — Opening Screen
+       ══════════════════════════════════════ -->
+  <div class="step active" id="step1">
+
+    <div class="float-emoji">❤️</div>
+
+    <!-- 📝 EDIT: small label above the title -->
+    <span class="tag">A message, just for you</span>
+
+    <!-- 📝 EDIT: main heading — change "Vaishali" to her name -->
+    <h1>Hey <em>Vaishali</em> 🌻</h1>
+
+    <!-- 📝 EDIT: opening line -->
+    <p class="body-text">
+      I made something because texting didn't feel special enough for what I wanted to say.
+    </p>
+
+    <br>
+    <!-- 📝 EDIT: button text -->
+    <button class="btn btn-primary" onclick="goTo(2)">Open it &nbsp;→</button>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       STEP 2 — Your Message / Quote
+       ══════════════════════════════════════ -->
+  <div class="step" id="step2">
+
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+
+      <!-- 📝 EDIT: the BIG italic quote -->
+      <p class="quote-text">
+        There's something about your vibe that I genuinely can't stop thinking about.
+      </p>
+
+      <div class="divider"></div>
+
+      <!-- 📝 EDIT: the paragraph below the quote -->
+      <p class="body-text" style="margin:0 auto;">
+        I've really enjoyed talking to you. Your personality, the way you carry yourself — it's rare. And I'd love to get to know you better.
+      </p>
+    </div>
+
+    <!-- 📝 EDIT: button text -->
+    <button class="btn btn-primary" onclick="goTo(3)">There's more &nbsp;→</button>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       STEP 3 — KitKat Surprise
+       ══════════════════════════════════════ -->
+  <div class="step" id="step3">
+
+    <!-- 📝 EDIT: heading above the KitKat -->
+    <h2>Something sweet,<br>just for you 🍫</h2>
+
+    <!-- Tappable KitKat bar -->
+    <div class="kitkat-zone" onclick="revealKitkat()" id="kitkатZone">
+      <div class="kitkat-bar" id="kitkатBar">
+        <div class="finger">KIT</div>
+        <div class="finger">KAT</div>
+        <div class="finger">KIT</div>
+        <div class="finger">KAT</div>
+      </div>
+      <!-- 📝 EDIT: hint text shown before tapping -->
+      <p class="kitkat-hint" id="kitkатHint">🍫 Tap to unwrap...</p>
+    </div>
+
+    <!-- 📝 EDIT: message revealed after tapping -->
+    <p class="reveal-msg" id="kitkатMsg">
+      I usually don't share KitKat with anyone — but for you? I don't even have to think twice. You're worth every piece. 😊
+    </p>
+
+    <!-- 📝 EDIT: button that appears after tapping -->
+    <button class="btn btn-outline" id="nextBtn" onclick="goTo(4)">
+      One more thing &nbsp;→
+    </button>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       STEP 4 — The Date Question
+       ══════════════════════════════════════ -->
+  <div class="step" id="step4">
+
+    <!-- 📝 EDIT: small label -->
+    <span class="tag">The real reason I built this</span>
+
+    <!-- 📝 EDIT: the big question -->
+    <h2>Will you go on<br>a date with me?</h2>
+
+    <!-- 📝 EDIT: sub-text -->
+    <p class="body-text">No pressure. Just a genuine ask. 🙏</p>
+
+    <div class="btn-row">
+      <!-- 📝 EDIT: button labels -->
+      <button class="btn btn-yes"   onclick="sayYes()">Yes, I'd love that 😊</button>
+      <button class="btn btn-no"    id="noBtn"
+              ontouchstart="runAway(this)"
+              onmouseenter="runAway(this)"
+              onclick="runAway(this)">No 😅</button>
+      <button class="btn btn-maybe" onclick="goTo(4)">Still thinking... 🤔</button>
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       STEP 5 — YES! Celebration
+       ══════════════════════════════════════ -->
+  <div class="step" id="step5">
+
+    <div class="confetti-big">🎉</div>
+
+    <!-- 📝 EDIT: celebration heading -->
+    <h2>She said <em>Yes!</em></h2>
+
+    <!-- 📝 EDIT: celebration message -->
+    <p class="body-text">
+      You just made me the happiest person. I promise to make it a date you'll remember. 🥂<br><br>
+      I'll handle all the planning — just bring your lovely self. ✨
+    </p>
+
+    <div class="divider" style="margin-top:24px;"></div>
+
+    <!-- 📝 EDIT: sign-off name -->
+    <p style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--warm);">
+      — Shashank 🍫
+    </p>
+
+  </div>
+
+</div><!-- /app -->
+
+<script>
+// ─────────────────────────────────────────────────────
+//  You don't need to edit anything below this line.
+// ─────────────────────────────────────────────────────
+
+// Spawn falling petals
+(function() {
+  const colors = ['#f48fb1','#f06292','#fce4ec','#ffb3c6','#e8416f','#f8bbd0'];
+  const bg = document.getElementById('petalBg');
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.cssText = `
+      left:${Math.random()*100}%;
+      background:${colors[i % colors.length]};
+      width:${7+Math.random()*9}px;
+      height:${11+Math.random()*13}px;
+      animation-duration:${7+Math.random()*7}s;
+      animation-delay:${Math.random()*10}s;
+      border-radius:${Math.random()>.5?'50% 0 50% 0':'0 50% 0 50%'};
+    `;
+    bg.appendChild(p);
+  }
+})();
+
+// Step navigation
+let current = 1;
+function goTo(n) {
+  if (n === current) return;
+  document.getElementById('step'+current).classList.remove('active');
+  document.getElementById('step'+n).classList.add('active');
+  current = n;
+  // Update progress dots
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === n - 1);
+  });
+}
+
+// KitKat tap
+let kitDone = false;
+function revealKitkat() {
+  if (kitDone) return;
+  kitDone = true;
+  document.getElementById('kitkатBar').classList.add('revealed');
+  document.getElementById('kitkатHint').textContent = '🍫 Just for you...';
+  setTimeout(() => {
+    document.getElementById('kitkатMsg').classList.add('shown');
+    document.getElementById('nextBtn').classList.add('show');
+  }, 620);
+}
+
+// No button runs away
+function runAway(btn) {
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const bw = btn.offsetWidth + 16, bh = btn.offsetHeight + 16;
+  btn.style.cssText += `
+    position:fixed; margin:0; z-index:999;
+    transition:left 0.25s ease,top 0.25s ease;
+    left:${Math.random()*(vw-bw)}px;
+    top:${Math.random()*(vh-bh)}px;
+  `;
+}
+
+// Yes → celebrate
+function sayYes() {
+  goTo(5);
+  confettiBurst();
+}
+
+function confettiBurst() {
+  const emojis = ['🎉','💖','🥂','✨','🌸','💌','🍫','💕','🌷'];
+  for (let i = 0; i < 38; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.textContent = emojis[i % emojis.length];
+      el.style.cssText = `
+        position:fixed;
+        left:${Math.random()*100}vw;
+        top:-40px;
+        font-size:${16+Math.random()*22}px;
+        z-index:9999;
+        pointer-events:none;
+        animation:petalFall ${2.5+Math.random()*3}s linear forwards;
+      `;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 7000);
+    }, i * 50);
+  }
+}
+</script>
+</body>
+</html>
